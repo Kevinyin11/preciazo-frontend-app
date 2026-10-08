@@ -1,0 +1,101 @@
+<div class="login-wrapper">
+  <!-- Lado izquierdo oscuro -->
+  <aside class="hero-panel">
+    <!-- Aros concéntricos decorativos -->
+    <div class="circle-decor circle-1"></div>
+    <div class="circle-decor circle-2"></div>
+    <div class="circle-decor circle-3"></div>
+
+    <div class="brand-header">
+      <span class="logo-title">
+        <span class="logo-white">Preci</span><span class="logo-accent">azo</span>
+      </span>
+      <span class="divider">|</span>
+      <span class="tagline">PLATAFORMA DE PRECIOS</span>
+    </div>
+
+    <div class="hero-body">
+      <span class="badge-sub">COMPRA MEJOR. VENDE MEJOR.</span>
+      <h1 class="hero-heading">
+        Decisiones inteligentes para cada compra.
+      </h1>
+      <p class="hero-description">
+        Compara precios, optimiza tus rutas y conecta con información verificada por la comunidad.
+      </p>
+    </div>
+
+    <div class="hero-footer">
+      <div class="stat-block">
+        <span class="stat-number">12 mil+</span>
+        <span class="stat-label">precios verificados</span>
+      </div>
+      <div class="stat-block">
+        <span class="stat-number">340+</span>
+        <span class="stat-label">tiendas conectadas</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Lado derecho claro (Formulario) -->
+  <main class="form-panel">
+    <div class="form-container">
+      <span class="welcome-label">BIENVENIDO</span>
+      <h2 class="form-title">Iniciar Sesión</h2>
+      <p class="form-subtitle">Ingresa tus credenciales para acceder a la plataforma.</p>
+
+      <!-- Selector de Rol: Comprador / Comerciante -->
+      <div class="role-toggle-bar">
+        <button
+          type="button"
+          class="role-choice-btn"
+          [class.active]="userRole === 'buyer'"
+          (click)="selectRole('buyer')">
+          Soy Comprador
+        </button>
+        <button
+          type="button"
+          class="role-choice-btn"
+          [class.active]="userRole === 'merchant'"
+          (click)="selectRole('merchant')">
+          Soy Comerciante
+        </button>
+      </div>
+
+      <form (ngSubmit)="onLogin()" class="auth-form">
+        <div class="field-group">
+          <label class="field-label">Correo electrónico</label>
+          <div class="input-container">
+            <mat-icon class="input-icon">mail_outline</mat-icon>
+            <input
+              type="email"
+              [(ngModel)]="email"
+              name="email"
+              placeholder="juan.ramos@perutech.pe"
+              required>
+          </div>
+        </div>
+
+        <div class="field-group">
+          <label class="field-label">Contraseña</label>
+          <div class="input-container">
+            <mat-icon class="input-icon">lock_outline</mat-icon>
+            <input
+              [type]="hidePassword ? 'password' : 'text'"
+              [(ngModel)]="password"
+              name="password"
+              placeholder="••••••••"
+              required>
+            <button type="button" class="icon-toggle" (click)="hidePassword = !hidePassword">
+              <mat-icon>{{ hidePassword ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+        </div>
+
+        <button type="submit" class="submit-btn">
+          <span>Ingresar como {{ userRole === 'buyer' ? 'Comprador' : 'Comerciante' }}</span>
+          <mat-icon>arrow_forward</mat-icon>
+        </button>
+      </form>
+    </div>
+  </main>
+</div>

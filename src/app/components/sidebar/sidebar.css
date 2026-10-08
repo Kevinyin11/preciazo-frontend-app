@@ -1,0 +1,163 @@
+.sidebar-container {
+  width: 250px;
+  background-color: #0b0f12;
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100vh;
+  position: fixed;
+  left: 0;
+  top: 0;
+  box-sizing: border-box;
+  padding: 24px 16px;
+  border-right: 1px solid #1a232a;
+  z-index: 100;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.brand-header {
+  padding-left: 8px;
+  margin-bottom: 16px;
+}
+
+.brand-title {
+  font-size: 24px;
+  font-weight: 900;
+  letter-spacing: -0.6px;
+  margin: 0;
+}
+
+.logo-white {
+  color: #ffffff;
+}
+
+.logo-accent {
+  color: #00c49f;
+}
+
+.location-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #00c49f;
+  font-size: 13px;
+  padding: 0 8px 24px 8px;
+}
+
+.location-badge mat-icon {
+  font-size: 16px;
+  width: 16px;
+  height: 16px;
+}
+
+.nav-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.nav-item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  color: #8b99a6;
+  text-decoration: none;
+  border-radius: 10px;
+  transition: all 0.2s ease;
+}
+
+.nav-item mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.nav-text {
+  display: flex;
+  flex-direction: column;
+}
+
+.nav-text .title {
+  font-size: 14px;
+  font-weight: 600;
+  color: #e1e8ed;
+}
+
+.nav-text .sub {
+  font-size: 11px;
+  color: #657786;
+}
+
+.nav-item:hover {
+  background-color: #151d24;
+}
+
+.nav-item.active-link {
+  background-color: #19262b;
+  border-left: 3px solid #00c49f;
+}
+
+.nav-item.active-link .title {
+  color: #00c49f;
+}
+
+.sidebar-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: 16px;
+  border-top: 1px solid #1a232a;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar-circle {
+  width: 36px;
+  height: 36px;
+  background-color: #00c49f;
+  color: #0b0f12;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 13px;
+}
+
+.user-details {
+  display: flex;
+  flex-direction: column;
+}
+
+.user-details .name {
+  font-size: 13px;
+  font-weight: 600;
+  color: #ffffff;
+}
+
+.user-details .role {
+  font-size: 11px;
+  color: #8899a6;
+}
+
+.btn-logout {
+  background: none;
+  border: none;
+  color: #8899a6;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.btn-logout:hover {
+  background-color: #1e2830;
+  color: #ffffff;
+}

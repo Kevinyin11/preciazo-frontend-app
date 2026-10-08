@@ -1,0 +1,482 @@
+:host {
+  display: block;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  color: #102a43;
+}
+
+.layout-wrapper {
+  display: flex;
+  background-color: #f7f9fa;
+  min-height: 100vh;
+}
+
+.main-content {
+  margin-left: 250px;
+  flex: 1;
+  min-width: 0;
+}
+
+/* Header */
+.top-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 14px 40px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.search-input-box {
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f5;
+  border-radius: 20px;
+  padding: 8px 18px;
+  width: 340px;
+}
+
+.search-input-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 10px;
+  width: 100%;
+  font-family: inherit;
+  font-size: 13px;
+  color: #102a43;
+}
+
+.search-input-box input::placeholder {
+  color: #9fb3c8;
+}
+
+.search-input-box mat-icon {
+  color: #829ab1;
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.btn-top-alert {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #486581;
+}
+
+/* Contenido Principal */
+.content-body {
+  padding: 28px 40px 60px 40px;
+  max-width: 860px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: #102a43;
+}
+
+.page-header p {
+  color: #829ab1;
+  margin: 4px 0 24px 0;
+  font-size: 13px;
+}
+
+/* =========================================
+   MAPA OSCURO DE RUTA
+   ========================================= */
+.route-map-card {
+  position: relative;
+  background-color: #111625;
+  border-radius: 14px;
+  overflow: hidden;
+  color: #ffffff;
+  margin-bottom: 28px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.map-top-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 20px;
+}
+
+.user-location-tag {
+  font-size: 12px;
+  color: #94a3b8;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.badge-optimized {
+  background-color: rgba(0, 196, 159, 0.14);
+  color: #00c49f;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.green-indicator {
+  font-size: 9px;
+  line-height: 1;
+}
+
+/* Selector Flotante de Transporte */
+.transport-selector {
+  position: absolute;
+  top: 14px;
+  right: 120px;
+  background: rgba(15, 23, 42, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 20px;
+  padding: 2px 4px;
+  display: flex;
+  gap: 2px;
+  z-index: 5;
+}
+
+.btn-transport {
+  background: none;
+  border: none;
+  border-radius: 14px;
+  padding: 4px 8px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  filter: grayscale(1);
+}
+
+.btn-transport.active {
+  background-color: #00c49f;
+  filter: grayscale(0);
+}
+
+/* Viewport SVG */
+.map-graphic-viewport {
+  width: 100%;
+  height: 130px;
+  position: relative;
+}
+
+.map-svg-connections {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Footer de Métricas */
+.map-stats-footer {
+  display: flex;
+  align-items: center;
+  background: rgba(8, 12, 20, 0.7);
+  padding: 12px 24px;
+  gap: 36px;
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.map-stat-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.map-stat-item.highlight-time {
+  background: rgba(255, 255, 255, 0.06);
+  padding: 4px 14px;
+  border-radius: 20px;
+}
+
+.stat-icon {
+  font-size: 16px;
+}
+
+.stat-text-col {
+  display: flex;
+  flex-direction: column;
+}
+
+.stat-text-col strong {
+  font-size: 14px;
+  color: #ffffff;
+}
+
+.stat-text-col small {
+  font-size: 10px;
+  color: #94a3b8;
+}
+
+.savings-amount {
+  color: #00c49f !important;
+}
+
+/* =========================================
+   ITINERARIO DE PARADAS (TIMELINE)
+   ========================================= */
+.itinerary-header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.itinerary-header-row h2 {
+  margin: 0;
+  font-size: 18px;
+  font-weight: 800;
+  color: #102a43;
+}
+
+.stops-count-text {
+  font-size: 13px;
+  font-weight: 700;
+  color: #00c49f;
+}
+
+.timeline-stops-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.timeline-step {
+  display: flex;
+  position: relative;
+}
+
+.step-indicator {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 48px;
+  flex-shrink: 0;
+}
+
+.vertical-connector-line {
+  width: 2px;
+  background-color: #cbd5e0;
+  flex: 1;
+  min-height: 24px;
+}
+
+/* Origen */
+.origin-pin {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background-color: #e6fffa;
+  color: #00c49f;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.origin-pin mat-icon {
+  font-size: 18px;
+  width: 18px;
+  height: 18px;
+}
+
+.origin-content {
+  padding: 4px 0 20px 10px;
+}
+
+.origin-content strong {
+  font-size: 14px;
+  color: #102a43;
+}
+
+.origin-content p {
+  margin: 2px 0 0 0;
+  font-size: 12px;
+  color: #829ab1;
+}
+
+/* Nodos de paradas */
+.circle-badge {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.stop-red { background-color: #ef4444; }
+.stop-orange { background-color: #f97316; }
+.stop-blue { background-color: #0284c7; }
+
+/* Tarjeta de parada */
+.stop-card {
+  flex: 1;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 16px 20px;
+  margin-bottom: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.stop-step.is-expanded .stop-card {
+  border-color: #00c49f;
+  box-shadow: 0 2px 8px rgba(0, 196, 159, 0.12);
+}
+
+.stop-step.is-closed-store .stop-card {
+  border-color: #fed7aa;
+}
+
+.stop-card-main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.store-headline {
+  display: flex;
+  flex-direction: column;
+}
+
+.name-status-line {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.store-title {
+  margin: 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #102a43;
+}
+
+.badge-closed {
+  background-color: #fee2e2;
+  color: #ef4444;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.store-address-line {
+  margin: 4px 0 6px 0;
+  font-size: 12px;
+  color: #829ab1;
+}
+
+.items-to-buy {
+  font-size: 12px;
+  font-weight: 600;
+  color: #486581;
+  margin-bottom: 4px;
+}
+
+.savings-pill {
+  color: #00a896;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.stop-time-tag {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  color: #829ab1;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.stop-time-tag mat-icon {
+  font-size: 15px;
+  width: 15px;
+  height: 15px;
+}
+
+/* =========================================
+   DRAWER EXPANDIDO (RUTA-SELECCIONADA)
+   ========================================= */
+.stop-card-expanded-drawer {
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid #f1f3f5;
+}
+
+.drawer-label {
+  font-size: 12px;
+  color: #627d98;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.items-chips-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+
+.prod-chip {
+  background-color: #f1f5f9;
+  color: #334e68;
+  border-radius: 6px;
+  padding: 4px 10px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.drawer-actions-row {
+  display: flex;
+  gap: 12px;
+}
+
+.btn-skip-stop {
+  flex: 1;
+  height: 40px;
+  background: #ffffff;
+  border: 1px solid #d9e2ec;
+  border-radius: 8px;
+  color: #486581;
+  font-weight: 600;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-skip-stop:hover {
+  background-color: #f8fafc;
+}
+
+.btn-confirm-stop {
+  flex: 1;
+  height: 40px;
+  background-color: #0b0f12;
+  color: #ffffff;
+  border: none;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.btn-confirm-stop:hover {
+  background-color: #1e2830;
+}

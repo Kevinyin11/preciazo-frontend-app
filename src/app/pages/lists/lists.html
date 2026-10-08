@@ -1,0 +1,224 @@
+<div class="layout-wrapper">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <!-- Barra superior de búsqueda -->
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <button class="btn-top-alert" title="Notificaciones">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </header>
+
+    <div class="content-body">
+      <!-- Encabezado de la página -->
+      <div class="page-header">
+        <h1>Mis Listas</h1>
+        <p>Canastas y presupuesto</p>
+      </div>
+
+      <!-- Pestañas: Lista Activa / Guardadas -->
+      <div class="tabs-nav">
+        <button class="tab-btn" [class.active]="activeTab === 'activa'" (click)="activeTab = 'activa'">
+          Lista Activa
+        </button>
+        <button class="tab-btn" [class.active]="activeTab === 'guardadas'" (click)="activeTab = 'guardadas'">
+          Guardadas
+        </button>
+      </div>
+
+      <!-- ================= PESTAÑA: LISTA ACTIVA ================= -->
+      <section *ngIf="activeTab === 'activa'" class="tab-content">
+        <!-- Título de Canasta y botón Ir de Compras / Modo Compra -->
+        <div class="list-title-bar">
+          <div class="title-details">
+            <h2>Canasta Quincenal</h2>
+            <span>{{ products.length }} productos</span>
+          </div>
+
+          <button
+            class="btn-shopping-mode"
+            [class.in-mode]="isShoppingMode"
+            (click)="toggleShoppingMode()">
+            <mat-icon *ngIf="!isShoppingMode">shopping_cart</mat-icon>
+            <span *ngIf="isShoppingMode">✓ </span>
+            <span>{{ isShoppingMode ? 'Modo Compra' : 'Ir de Compras' }}</span>
+          </button>
+        </div>
+
+        <!-- Tarjeta: Control de Presupuesto -->
+        <div class="budget-card">
+          <div class="budget-header">
+            <span class="budget-title">Control de presupuesto</span>
+            <button class="btn-edit-budget" (click)="toggleEditBudget()">
+              {{ isEditingBudget ? 'Cancelar' : 'Editar' }}
+            </button>
+          </div>
+
+          <!-- Input para editar presupuesto (LISTAS-EDITAR-PRESUPUESTO) -->
+          <div *ngIf="isEditingBudget" class="budget-edit-box">
+            <input
+              type="number"
+              [(ngModel)]="budgetInput"
+              class="budget-edit-input"
+              (keyup.enter)="saveBudget()">
+            <button class="btn-budget-ok" (click)="saveBudget()">OK</button>
+          </div>
+
+          <div class="budget-stats">
+            <div class="stat-col">
+              <span class="stat-caption">LÍMITE MÁXIMO</span>
+              <strong class="stat-amount">S/ {{ budgetLimit.toFixed(2) }}</strong>
+            </div>
+            <div class="stat-col align-right">
+              <span class="stat-caption">MONTO RESERVADO / GASTADO</span>
+              <strong class="stat-amount text-teal">S/ {{ totalAmount.toFixed(2) }}</strong>
+            </div>
+          </div>
+
+          <!-- Barra de Progreso bicolor (Negro + Turquesa) -->
+          <div class="progress-bar-track">
+            <div class="fill-spent" [style.width.%]="spentPercentage"></div>
+            <div class="fill-reserved" [style.width.%]="reservedPercentage"></div>
+          </div>
+
+          <div class="budget-legend">
+            <span class="legend-item"><span class="dot dot-black"></span> Gastado S/ {{ spentAmount.toFixed(2) }}</span>
+            <span class="legend-item"><span class="dot dot-teal"></span> Reservado S/ {{ reservedAmount.toFixed(2) }}</span>
+          </div>
+
+          <!-- Badge en carrito cuando Modo Compra está activo (LISTAS-MODO-COMPRA) -->
+          <div *ngIf="isShoppingMode" class="cart-total-badge">
+            En carrito: S/ {{ cartTotal.toFixed(2) }}
+          </div>
+        </div>
+
+        <!-- Tarjeta: Sugerencia de Sustituto Más Económico (LISTAS-ACTIVA) -->
+        <div *ngIf="showSubstituteCard" class="substitute-card">
+          <div class="substitute-content">
+            <div class="bulb-icon-wrapper">
+              <mat-icon>lightbulb</mat-icon>
+            </div>
+            <div class="substitute-text">
+              <strong class="sub-headline">Sustituto más económico</strong>
+              <p class="sub-body">
+                Detergente Genérico 500g a <span class="highlight-teal">S/ 4.50</span> en vez de S/ 6.90 —
+                <strong class="highlight-teal">ahorra S/ 2.40</strong>
+              </p>
+            </div>
+          </div>
+          <div class="substitute-actions">
+            <button class="btn-swap-accept" (click)="applySubstitute()">Aceptar cambio</button>
+            <button class="btn-swap-ignore" (click)="dismissSubstitute()">Ignorar</button>
+          </div>
+        </div>
+
+        <!-- Listado de Artículos -->
+        <div class="products-list">
+          <div
+            *ngFor="let p of products"
+            class="product-row"
+            [class.checked-row]="p.checked && isShoppingMode">
+
+            <div class="product-main-info">
+              <!-- Checkbox interactivo en Modo Compra -->
+              <input
+                *ngIf="isShoppingMode"
+                type="checkbox"
+                [(ngModel)]="p.checked"
+                class="checkbox-styled">
+
+              <div>
+                <span class="product-name">{{ p.name }}</span>
+                <div class="product-meta">
+                  <span class="qty-pill">{{ p.qtyPill }}</span>
+                  <span class="unit-price-text">{{ p.unitPrice }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="product-price-col">
+              <strong class="product-price">S/ {{ p.price.toFixed(2) }}</strong>
+              <button class="btn-delete" (click)="removeProduct(p.id)" title="Eliminar artículo">×</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Tarjeta Agregar Producto (LISTAS-AGREGAR) -->
+        <div class="add-section">
+          <!-- Botón de apertura cuando el formulario está cerrado -->
+          <button *ngIf="!isAddingProduct" class="btn-add-trigger" (click)="isAddingProduct = true">
+            <mat-icon>add</mat-icon>
+            <span>Agregar producto</span>
+          </button>
+
+          <!-- Formulario abierto según Figma -->
+          <div *ngIf="isAddingProduct" class="add-card-container">
+            <h3 class="add-card-title">Agregar Producto</h3>
+
+            <div class="add-card-fields">
+              <input
+                type="text"
+                [(ngModel)]="newProdName"
+                placeholder="Nombre del producto"
+                class="add-input-text">
+
+              <div class="add-row-numbers">
+                <input
+                  type="number"
+                  [(ngModel)]="newProdQty"
+                  placeholder="1"
+                  class="add-input-qty"
+                  min="1">
+                <input
+                  type="number"
+                  [(ngModel)]="newProdPrice"
+                  placeholder="Precio (S/)"
+                  class="add-input-price"
+                  step="0.10"
+                  min="0">
+              </div>
+            </div>
+
+            <div class="add-card-actions">
+              <button type="button" class="btn-action-cancel" (click)="isAddingProduct = false">
+                Cancelar
+              </button>
+              <button type="button" class="btn-action-submit" (click)="saveNewProduct()">
+                Agregar
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= PESTAÑA: GUARDADAS (LISTAS-GUARDADOS) ================= -->
+      <section *ngIf="activeTab === 'guardadas'" class="tab-content">
+        <p class="saved-subheading">Plantillas y listas guardadas</p>
+        <div class="saved-cards-stack">
+          <div *ngFor="let s of savedLists" class="saved-list-card">
+            <div class="saved-left">
+              <div class="title-with-pill">
+                <strong>{{ s.name }}</strong>
+                <!-- Badge condicional: celeste para plantilla y amarillo para borrador -->
+                <span class="tag-pill" [ngClass]="s.tagType === 'clonable' ? 'pill-blue' : 'pill-yellow'">
+                  {{ s.tag }}
+                </span>
+              </div>
+              <span class="saved-budget">Presupuesto: S/ {{ s.budget.toFixed(2) }}</span>
+            </div>
+            <button class="btn-use-list" (click)="useSavedList(s)">Usar</button>
+          </div>
+
+          <button class="btn-add-trigger" (click)="activeTab = 'activa'">
+            <mat-icon>add</mat-icon>
+            <span>Nueva Lista</span>
+          </button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

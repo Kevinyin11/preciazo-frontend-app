@@ -1,0 +1,73 @@
+<aside class="sidebar-container">
+  <div class="sidebar-top">
+    <!-- Logotipo Preciazo bicromático -->
+    <div class="brand-header">
+      <h2 class="brand-title">
+        <span class="logo-white">Preci</span><span class="logo-accent">azo</span>
+      </h2>
+    </div>
+
+    <!-- Ubicación -->
+    <div class="location-badge">
+      <mat-icon>near_me</mat-icon>
+      <span>Miraflores, Lima</span>
+    </div>
+
+    <!-- Menú de Navegación -->
+    <nav class="nav-menu">
+      <a routerLink="/home" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>home</mat-icon>
+        <div class="nav-text">
+          <span class="title">Inicio</span>
+          <span class="sub">Panel principal</span>
+        </div>
+      </a>
+
+      <a routerLink="/lists" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>format_list_bulleted</mat-icon>
+        <div class="nav-text">
+          <span class="title">Mis Listas</span>
+          <span class="sub">Canastas y presupuesto</span>
+        </div>
+      </a>
+
+      <a routerLink="/compare" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>bar_chart</mat-icon>
+        <div class="nav-text">
+          <span class="title">Comparar Precios</span>
+          <span class="sub">Precios multi-tienda</span>
+        </div>
+      </a>
+
+      <a routerLink="/route" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>timeline</mat-icon>
+        <div class="nav-text">
+          <span class="title">Ruta</span>
+          <span class="sub">Itinerario óptimo</span>
+        </div>
+      </a>
+
+      <a routerLink="/verification" routerLinkActive="active-link" class="nav-item">
+        <mat-icon>verified_user</mat-icon>
+        <div class="nav-text">
+          <span class="title">Verificación Comunitaria</span>
+          <span class="sub">Valida precios reportados</span>
+        </div>
+      </a>
+    </nav>
+  </div>
+
+  <!-- Pie con Perfil de Usuario -->
+  <div class="sidebar-footer">
+    <div class="user-profile">
+      <div class="avatar-circle">JR</div>
+      <div class="user-details">
+        <span class="name">Juan Ramos</span>
+        <span class="role">Comprador</span>
+      </div>
+    </div>
+    <button class="btn-logout" (click)="logout()" title="Cerrar sesión">
+      <mat-icon>logout</mat-icon>
+    </button>
+  </div>
+</aside>

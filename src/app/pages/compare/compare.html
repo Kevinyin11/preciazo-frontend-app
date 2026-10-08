@@ -1,0 +1,229 @@
+<div class="layout-wrapper">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <!-- Barra superior de búsqueda -->
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <div class="header-actions">
+        <!-- Botón para descargar resumen PDF -->
+        <button class="btn-pdf-export" (click)="downloadPDFSummary()" title="Descargar Resumen en PDF">
+          <mat-icon>picture_as_pdf</mat-icon>
+          <span>Exportar PDF</span>
+        </button>
+        <button class="btn-top-alert" title="Notificaciones">
+          <mat-icon>notifications_none</mat-icon>
+        </button>
+      </div>
+    </header>
+
+    <div class="content-body" id="printable-area">
+      <!-- Encabezado de la página -->
+      <div class="page-header">
+        <h1>Comparar Precios</h1>
+        <p>Precios multi-tienda</p>
+      </div>
+
+      <!-- Barra de título de Comparativa con botón Filtros -->
+      <div class="comparative-header-bar">
+        <div class="comp-title-info">
+          <h2>Comparativa</h2>
+          <span>Lista: Canasta Quincenal · 7 ítems</span>
+        </div>
+        <button class="btn-toggle-filters" [class.active-btn]="showFilters" (click)="toggleFilters()">
+          <mat-icon>tune</mat-icon>
+          <span>Filtros</span>
+        </button>
+      </div>
+
+      <!-- Panel Desplegable de Filtros (COMPRAS-FILTROS) -->
+      <div *ngIf="showFilters" class="filters-panel-card">
+        <div class="filter-row-item">
+          <span class="filter-label">Radio máximo: {{ maxRadius }} km</span>
+        </div>
+
+        <div class="filter-row-item">
+          <span class="filter-label">Tiendas incluidas</span>
+          <div class="stores-chip-group">
+            <button
+              *ngFor="let s of stores"
+              class="chip-store"
+              [class.chip-active]="s.active"
+              (click)="toggleStore(s)">
+              {{ s.name }}
+            </button>
+          </div>
+        </div>
+
+        <div class="filter-row-item toggle-row">
+          <span class="filter-label">Precio por unidad</span>
+          <label class="switch-ui">
+            <input type="checkbox" [(ngModel)]="showUnitPrice">
+            <span class="slider-round"></span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Tarjetas Superiores de Tiendas Resumen -->
+      <div class="store-summary-grid">
+        <div
+          *ngFor="let s of storeSummaries"
+          class="summary-card"
+          [class.card-best]="s.isBest">
+
+          <div class="summary-top-line">
+            <span class="store-distance">{{ s.rank }}</span>
+            <span *ngIf="s.isBest" class="badge-mejor">MEJOR</span>
+          </div>
+
+          <strong class="summary-store-name">{{ s.name }}</strong>
+          <span class="summary-total-price">S/ {{ s.total.toFixed(2) }}</span>
+          <span class="summary-avail-text">{{ s.available }}</span>
+        </div>
+      </div>
+
+      <!-- Tabla Comparativa -->
+      <div class="comparison-table-wrapper">
+        <table class="comparison-table">
+          <thead>
+          <tr>
+            <th class="th-product">PRODUCTO</th>
+            <th class="th-store">Metro</th>
+            <th class="th-store">Tottus</th>
+            <th class="th-store">Wong</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let row of comparisonData">
+            <!-- Nombre y Unidad -->
+            <td class="td-product">
+              <span class="prod-title">{{ row.name }}</span>
+              <span class="prod-unit">{{ row.unit }}</span>
+            </td>
+
+            <!-- Metro -->
+            <td class="td-store">
+              <div class="price-cell">
+                  <span class="price-val" [class.highlight-best]="row.metro.isBest">
+                    <span *ngIf="row.metro.isBest">★ </span>S/ {{ row.metro.price.toFixed(2) }}
+                  </span>
+                <span class="unit-val">{{ row.metro.unitPrice }}</span>
+                <span class="status-pill-small" [ngClass]="'status-' + row.metro.status.toLowerCase().replace(' ', '-')">
+                    • {{ row.metro.status }}
+                  </span>
+              </div>
+            </td>
+
+            <!-- Tottus -->
+            <td class="td-store">
+              <div class="price-cell">
+                  <span class="price-val" [class.highlight-best]="row.tottus.isBest">
+                    <span *ngIf="row.tottus.isBest">★ </span>S/ {{ row.tottus.price.toFixed(2) }}
+                  </span>
+                <span class="unit-val">{{ row.tottus.unitPrice }}</span>
+                <span class="status-pill-small" [ngClass]="'status-' + row.tottus.status.toLowerCase().replace(' ', '-')">
+                    • {{ row.tottus.status }}
+                  </span>
+              </div>
+            </td>
+
+            <!-- Wong -->
+            <td class="td-store">
+              <div class="price-cell">
+                  <span *ngIf="row.wong.status !== 'Agotado'" class="price-val" [class.highlight-best]="row.wong.isBest">
+                    <span *ngIf="row.wong.isBest">★ </span>S/ {{ row.wong.price.toFixed(2) }}
+                  </span>
+                <span *ngIf="row.wong.status === 'Agotado'" class="price-val text-muted">—</span>
+                <span class="unit-val">{{ row.wong.unitPrice }}</span>
+                <span class="status-pill-small" [ngClass]="'status-' + row.wong.status.toLowerCase().replace(' ', '-')">
+                    • {{ row.wong.status }}
+                  </span>
+              </div>
+            </td>
+          </tr>
+          </tbody>
+          <!-- Fila de Totales -->
+          <tfoot>
+          <tr class="total-row">
+            <td class="td-product total-label">TOTAL</td>
+            <td class="td-store">
+              <span class="total-amount highlight-best">S/ 47.80</span>
+              <span class="total-status status-disponible">• Disponible</span>
+            </td>
+            <td class="td-store">
+              <span class="total-amount">S/ 51.20</span>
+              <span class="total-status status-disponible">• Disponible</span>
+            </td>
+            <td class="td-store">
+              <span class="total-amount">S/ 54.90</span>
+              <span class="total-status status-stock-bajo">• Stock Bajo</span>
+            </td>
+          </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <!-- Botón Inferior: Reportar precio diferente (COMPRAS-REPORTE) -->
+      <div class="bottom-report-row">
+        <button class="btn-report-shelf" (click)="openReportModal()">
+          Reportar precio diferente en góndola
+        </button>
+      </div>
+    </div>
+  </main>
+
+  <!-- ================= MODAL DE REPORTE (COMPRAS-REPORTE) ================= -->
+  <div *ngIf="showReportModal" class="modal-backdrop">
+    <div class="modal-card">
+      <button class="btn-modal-close" (click)="closeReportModal()">×</button>
+
+      <span class="modal-sub-label">VERIFICACIÓN COMUNITARIA</span>
+      <h3 class="modal-title">Reportar precio observado</h3>
+
+      <div class="modal-body-fields">
+        <div class="field-item">
+          <label>Tienda</label>
+          <div class="select-container">
+            <select [(ngModel)]="reportStore">
+              <option value="Metro">Metro</option>
+              <option value="Tottus">Tottus</option>
+              <option value="Wong">Wong</option>
+              <option value="Plaza Vea">Plaza Vea</option>
+              <option value="Bodega Don Alberto">Bodega Don Alberto</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-item">
+          <label>Producto seleccionado</label>
+          <div class="select-container">
+            <select [(ngModel)]="reportProduct">
+              <option *ngFor="let r of comparisonData" [value]="r.name">{{ r.name }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="field-item">
+          <label>Precio observado</label>
+          <div class="price-input-container">
+            <span class="currency-tag">S/</span>
+            <input type="number" [(ngModel)]="reportPrice" placeholder="0.00" step="0.10" min="0">
+          </div>
+          <span class="helper-text">Ingresa el precio exacto que figura en la góndola.</span>
+        </div>
+
+        <div *ngIf="reportSuccessMessage" class="success-alert">
+          {{ reportSuccessMessage }}
+        </div>
+      </div>
+
+      <div class="modal-actions-row">
+        <button class="btn-modal-cancel" (click)="closeReportModal()">Cancelar</button>
+        <button class="btn-modal-send" (click)="submitReport()">Enviar reporte</button>
+      </div>
+    </div>
+  </div>
+</div>

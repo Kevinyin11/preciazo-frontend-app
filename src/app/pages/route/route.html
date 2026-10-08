@@ -1,0 +1,207 @@
+<div class="layout-wrapper">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <!-- Barra superior de búsqueda -->
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <button class="btn-top-alert" title="Notificaciones">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </header>
+
+    <div class="content-body">
+      <!-- Encabezado de la página -->
+      <div class="page-header">
+        <h1>Ruta</h1>
+        <p>Itinerario óptimo</p>
+      </div>
+
+      <!-- Mapa interactivo de la ruta (SVG Canvas) -->
+      <div class="route-map-card">
+        <!-- Badge de optimización -->
+        <div class="map-top-bar">
+          <span class="user-location-tag">
+            <span class="location-dot">📍</span> Tu ubicación actual
+          </span>
+          <span class="badge-optimized">
+            <span class="green-indicator">●</span> Optimizada
+          </span>
+        </div>
+
+        <!-- Selector de Transporte -->
+        <div class="transport-selector">
+          <button
+            class="btn-transport"
+            [class.active]="transportMode === 'walk'"
+            (click)="setTransportMode('walk')"
+            title="A pie">
+            🚶
+          </button>
+          <button
+            class="btn-transport"
+            [class.active]="transportMode === 'bus'"
+            (click)="setTransportMode('bus')"
+            title="Transporte público">
+            🚌
+          </button>
+          <button
+            class="btn-transport"
+            [class.active]="transportMode === 'car'"
+            (click)="setTransportMode('car')"
+            title="Auto particular">
+            🚗
+          </button>
+        </div>
+
+        <!-- Diagrama vectorial de paradas conectadas -->
+        <div class="map-graphic-viewport">
+          <svg class="map-svg-connections" viewBox="0 0 500 130">
+            <!-- Malla de fondo sutil -->
+            <defs>
+              <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
+                <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(255, 255, 255, 0.04)" stroke-width="1"/>
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#grid)" />
+
+            <!-- Líneas punteadas turquesas entre nodos -->
+            <line x1="120" y1="85" x2="235" y2="40" stroke="#00c49f" stroke-width="3" stroke-dasharray="6 6" />
+            <line x1="265" y1="40" x2="380" y2="75" stroke="#00c49f" stroke-width="3" stroke-dasharray="6 6" />
+
+            <!-- Nodo 1: Rojo (Metro) -->
+            <g class="node-marker" transform="translate(100, 85)">
+              <ellipse cx="20" cy="0" rx="30" ry="10" fill="#e53e3e" />
+              <text x="20" y="-14" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">1</text>
+            </g>
+
+            <!-- Nodo 2: Naranja (Tottus) -->
+            <g class="node-marker" transform="translate(250, 40)">
+              <ellipse cx="0" cy="0" rx="30" ry="10" fill="#f97316" />
+              <text x="0" y="-14" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">2</text>
+            </g>
+
+            <!-- Nodo 3: Azul (Wong) -->
+            <g class="node-marker" transform="translate(400, 75)">
+              <ellipse cx="0" cy="0" rx="30" ry="10" fill="#0284c7" />
+              <text x="0" y="-14" fill="#ffffff" font-size="12" font-weight="700" text-anchor="middle">3</text>
+            </g>
+          </svg>
+        </div>
+
+        <!-- Barra inferior de métricas de ruta -->
+        <div class="map-stats-footer">
+          <div class="map-stat-item">
+            <span class="stat-icon">📍</span>
+            <div class="stat-text-col">
+              <strong>{{ totalDistance }}</strong>
+              <small>Total</small>
+            </div>
+          </div>
+          <div class="map-stat-item highlight-time">
+            <span class="stat-icon">⏱</span>
+            <div class="stat-text-col">
+              <strong>{{ totalTime }}</strong>
+              <small>Eco</small>
+            </div>
+          </div>
+          <div class="map-stat-item">
+            <span class="stat-icon">💰</span>
+            <div class="stat-text-col">
+              <strong class="savings-amount">S/ {{ totalSavings.toFixed(2) }}</strong>
+              <small>Ahorro</small>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Sección de Itinerario de Paradas -->
+      <div class="itinerary-header-row">
+        <h2>Itinerario de Paradas</h2>
+        <span class="stops-count-text">{{ stops.length }} paradas</span>
+      </div>
+
+      <div class="timeline-stops-container">
+        <!-- Punto de inicio: Tu ubicación -->
+        <div class="timeline-step origin-step">
+          <div class="step-indicator">
+            <div class="circle-icon origin-pin">
+              <mat-icon>near_me</mat-icon>
+            </div>
+            <div class="vertical-connector-line"></div>
+          </div>
+          <div class="origin-content">
+            <strong>Tu ubicación</strong>
+            <p>Inicio del recorrido</p>
+          </div>
+        </div>
+
+        <!-- Lista de Paradas Secuenciales -->
+        <div
+          *ngFor="let s of stops; let last = last"
+          class="timeline-step stop-step"
+          [class.is-expanded]="s.expanded"
+          [class.is-closed-store]="s.isClosed">
+
+          <!-- Indicador Numérico y Línea Conectora -->
+          <div class="step-indicator">
+            <div class="circle-badge" [ngClass]="s.colorClass">
+              {{ s.number }}
+            </div>
+            <div *ngIf="!last" class="vertical-connector-line"></div>
+          </div>
+
+          <!-- Tarjeta de Parada -->
+          <div class="stop-card" (click)="toggleStop(s)">
+            <div class="stop-card-main-header">
+              <div class="store-headline">
+                <div class="name-status-line">
+                  <h3 class="store-title">{{ s.name }}</h3>
+                  <span *ngIf="s.isClosed" class="badge-closed">Cerrado</span>
+                </div>
+                <p class="store-address-line">{{ s.address }} · {{ s.distance }}</p>
+                <span class="items-to-buy">{{ s.itemsCount }} ítems a comprar</span>
+                <span class="savings-pill">Ahorro neto: S/ {{ s.savings.toFixed(2) }}</span>
+              </div>
+
+              <div class="stop-time-tag">
+                <mat-icon>schedule</mat-icon>
+                <span>{{ s.travelTime }}</span>
+              </div>
+            </div>
+
+            <!-- Contenido desplegado (RUTA-SELECCIONADA) -->
+            <div *ngIf="s.expanded" class="stop-card-expanded-drawer">
+              <div class="store-items-drawer">
+                <span class="drawer-label">Productos en esta tienda:</span>
+                <div class="items-chips-wrap">
+                  <span *ngFor="let prod of s.products" class="prod-chip">
+                    {{ prod }}
+                  </span>
+                </div>
+              </div>
+
+              <div class="drawer-actions-row">
+                <button
+                  type="button"
+                  class="btn-skip-stop"
+                  (click)="skipStop(s.id, $event)">
+                  Omitir parada
+                </button>
+                <button
+                  type="button"
+                  class="btn-confirm-stop"
+                  (click)="confirmStop(s, $event)">
+                  {{ s.confirmed ? '✓ Parada lista' : 'Confirmar parada' }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

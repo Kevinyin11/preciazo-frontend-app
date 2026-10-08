@@ -1,0 +1,394 @@
+.layout-wrapper {
+  display: flex;
+  background-color: #f7f9fa;
+  min-height: 100vh;
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+.main-content {
+  margin-left: 250px;
+  flex: 1;
+}
+
+.top-search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #ffffff;
+  padding: 12px 36px;
+  border-bottom: 1px solid #e1e8ed;
+}
+
+.search-input-box {
+  display: flex;
+  align-items: center;
+  background-color: #f1f3f5;
+  border-radius: 20px;
+  padding: 8px 16px;
+  width: 320px;
+}
+
+.search-input-box input {
+  border: none;
+  background: transparent;
+  outline: none;
+  margin-left: 8px;
+  width: 100%;
+  font-family: inherit;
+}
+
+.search-input-box mat-icon {
+  color: #718096;
+}
+
+.btn-top-alert {
+  background: none;
+  border: 1px solid #e1e8ed;
+  border-radius: 50%;
+  padding: 8px;
+  display: flex;
+  cursor: pointer;
+}
+
+.content-body {
+  padding: 28px 36px 40px 36px;
+  max-width: 1080px;
+}
+
+.page-header h1 {
+  margin: 0;
+  font-size: 26px;
+  font-weight: 800;
+  color: #102a43;
+}
+
+.page-header p {
+  color: #829ab1;
+  margin: 4px 0 24px 0;
+  font-size: 13px;
+}
+
+/* Tarjetas rápidas */
+.quick-actions-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.action-card {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 16px;
+  text-decoration: none;
+  color: #334e68;
+  font-weight: 700;
+  font-size: 14px;
+  border: 1px solid #e2e8f0;
+  transition: all 0.2s ease;
+}
+
+.action-card mat-icon {
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.action-card.active-card {
+  background-color: #00c49f;
+  color: #ffffff;
+  border-color: #00c49f;
+}
+
+/* Grilla general */
+.main-sections-grid {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+  gap: 32px;
+}
+
+.section-block {
+  margin-bottom: 28px;
+}
+
+.section-title {
+  font-size: 16px;
+  font-weight: 800;
+  color: #102a43;
+  margin: 0 0 14px 0;
+}
+
+.section-title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.link-view-all, .btn-text-filter {
+  color: #00c49f;
+  font-weight: 700;
+  font-size: 12px;
+  text-decoration: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Categorías */
+.categories-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 10px;
+}
+
+.category-box {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 8px;
+  text-align: center;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.category-box:hover {
+  transform: translateY(-2px);
+}
+
+.cat-icon-wrap {
+  margin-bottom: 6px;
+  color: #627d98;
+}
+
+.category-box span {
+  font-size: 11px;
+  font-weight: 600;
+  color: #334e68;
+}
+
+/* Ofertas */
+.deals-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 14px;
+}
+
+.deal-card {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e2e8f0;
+}
+
+.deal-image-wrapper {
+  position: relative;
+  width: 100%;
+  height: 120px;
+}
+
+.deal-image-wrapper img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.discount-badge {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: #00c49f;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 11px;
+  padding: 3px 6px;
+  border-radius: 6px;
+}
+
+.deal-info {
+  padding: 12px;
+}
+
+.deal-store {
+  font-size: 11px;
+  color: #829ab1;
+  display: block;
+}
+
+.deal-name {
+  font-size: 13px;
+  color: #102a43;
+  margin: 3px 0 8px 0;
+  display: block;
+}
+
+.deal-prices {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+}
+
+.current-price {
+  color: #00c49f;
+  font-weight: 800;
+  font-size: 15px;
+}
+
+.old-price {
+  color: #9fb3c8;
+  font-size: 11px;
+  text-decoration: line-through;
+}
+
+/* Banner Verificación */
+.community-banner-card {
+  background-color: #07090b;
+  color: #ffffff;
+  border-radius: 12px;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  text-decoration: none;
+  margin-top: 14px;
+}
+
+.banner-left {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.shield-icon-box {
+  background: #00c49f;
+  width: 38px;
+  height: 38px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+}
+
+.banner-left strong {
+  font-size: 14px;
+  display: block;
+}
+
+.banner-left p {
+  margin: 2px 0 0 0;
+  font-size: 11px;
+  color: #829ab1;
+}
+
+.banner-arrow {
+  color: #00c49f;
+}
+
+/* Tiendas cercanas */
+.stores-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.store-item-card {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 14px 16px;
+  border: 1px solid #e2e8f0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.store-brand-icon {
+  background: #fee2e2;
+  color: #ef4444;
+  width: 40px;
+  height: 40px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.store-details {
+  flex: 1;
+}
+
+.store-name-line {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.store-name {
+  font-weight: 700;
+  font-size: 14px;
+  color: #102a43;
+}
+
+.status-pill {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+}
+
+.open-pill {
+  background: #e6fffa;
+  color: #00c49f;
+}
+
+.closed-pill {
+  background: #edf2f7;
+  color: #718096;
+}
+
+.store-meta-line {
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  color: #829ab1;
+  margin: 4px 0 2px 0;
+  gap: 4px;
+}
+
+.rating {
+  color: #f59e0b;
+  display: flex;
+  align-items: center;
+  font-weight: 700;
+}
+
+.rating mat-icon {
+  font-size: 12px;
+  width: 12px;
+  height: 12px;
+}
+
+.store-address {
+  margin: 0;
+  font-size: 11px;
+  color: #9fb3c8;
+}
+
+.btn-route-action {
+  background-color: #07090b;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 12px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-radius: 8px;
+  transition: background-color 0.2s ease;
+}
+
+.btn-route-action:hover {
+  background-color: #1a232a;
+}

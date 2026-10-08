@@ -1,0 +1,135 @@
+<div class="layout-wrapper">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <!-- Barra superior de búsqueda -->
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <button class="btn-top-alert">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </header>
+
+    <div class="content-body">
+      <!-- Encabezado de la página -->
+      <div class="page-header">
+        <h1>Inicio</h1>
+        <p>Panel principal</p>
+      </div>
+
+      <!-- Accesos Rápidos Principales -->
+      <section class="quick-actions-row">
+        <a routerLink="/lists" class="action-card active-card">
+          <mat-icon>assignment</mat-icon>
+          <span>Nueva Lista</span>
+        </a>
+        <a routerLink="/compare" class="action-card">
+          <mat-icon>balance</mat-icon>
+          <span>Comparar</span>
+        </a>
+        <a routerLink="/route" class="action-card">
+          <mat-icon>explore</mat-icon>
+          <span>Mi Ruta</span>
+        </a>
+      </section>
+
+      <!-- Grilla de Secciones -->
+      <div class="main-sections-grid">
+        <!-- Columna Izquierda: Categorías y Ofertas Destacadas -->
+        <div class="left-column">
+          <!-- Categorías -->
+          <section class="section-block">
+            <h2 class="section-title">Categorías</h2>
+            <div class="categories-grid">
+              <div *ngFor="let cat of categories" class="category-box">
+                <div class="cat-icon-wrap">
+                  <mat-icon>{{ cat.icon }}</mat-icon>
+                </div>
+                <span>{{ cat.name }}</span>
+              </div>
+            </div>
+          </section>
+
+          <!-- Ofertas Destacadas -->
+          <section class="section-block">
+            <div class="section-title-row">
+              <h2 class="section-title">Ofertas Destacadas</h2>
+              <a href="javascript:void(0)" class="link-view-all">Ver todas</a>
+            </div>
+
+            <div class="deals-grid">
+              <div *ngFor="let deal of deals" class="deal-card">
+                <div class="deal-image-wrapper">
+                  <img [src]="deal.image" [alt]="deal.name">
+                  <span class="discount-badge">{{ deal.discount }}</span>
+                </div>
+                <div class="deal-info">
+                  <span class="deal-store">{{ deal.store }}</span>
+                  <strong class="deal-name">{{ deal.name }}</strong>
+                  <div class="deal-prices">
+                    <span class="current-price">S/ {{ deal.price.toFixed(2) }}</span>
+                    <span class="old-price">S/ {{ deal.oldPrice.toFixed(2) }}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Banner Verificación Comunitaria -->
+          <a routerLink="/verification" class="community-banner-card">
+            <div class="banner-left">
+              <div class="shield-icon-box">
+                <mat-icon>verified_user</mat-icon>
+              </div>
+              <div>
+                <strong>Precios verificados por la comunidad</strong>
+                <p>+12,400 reportes confirmados este mes</p>
+              </div>
+            </div>
+            <mat-icon class="banner-arrow">arrow_forward</mat-icon>
+          </a>
+        </div>
+
+        <!-- Columna Derecha: Tiendas Cercanas -->
+        <div class="right-column">
+          <section class="section-block">
+            <div class="section-title-row">
+              <h2 class="section-title">Tiendas Cercanas</h2>
+              <button class="btn-text-filter">Filtrar</button>
+            </div>
+
+            <div class="stores-stack">
+              <div *ngFor="let s of nearbyStores" class="store-item-card">
+                <div class="store-brand-icon">
+                  <mat-icon>storefront</mat-icon>
+                </div>
+
+                <div class="store-details">
+                  <div class="store-name-line">
+                    <span class="store-name">{{ s.name }}</span>
+                    <span class="status-pill" [class.open-pill]="s.open" [class.closed-pill]="!s.open">
+                      {{ s.status }}
+                    </span>
+                  </div>
+                  <div class="store-meta-line">
+                    <span>{{ s.distance }}</span>
+                    <span class="dot-separator">·</span>
+                    <span class="rating"><mat-icon>star</mat-icon> {{ s.rating }}</span>
+                    <span class="dot-separator">·</span>
+                    <span>{{ s.productsCount }}</span>
+                  </div>
+                  <p class="store-address">{{ s.address }}</p>
+                </div>
+
+                <a routerLink="/route" class="btn-route-action">Ruta</a>
+              </div>
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>

@@ -1,0 +1,329 @@
+<div class="layout-wrapper">
+  <!-- SIDEBAR DEL COMERCIANTE (MM) -->
+  <aside class="sidebar-container">
+    <div class="sidebar-top">
+      <!-- Marca Preciazo -->
+      <div class="brand-header">
+        <h2 class="brand-title">
+          <span class="logo-white">Preci</span><span class="logo-accent">azo</span>
+        </h2>
+      </div>
+
+      <div class="location-badge">
+        <mat-icon>storefront</mat-icon>
+        <span>Metro Miraflores</span>
+      </div>
+
+      <!-- Opciones del Comerciante -->
+      <nav class="nav-menu">
+        <button class="nav-item" [class.active-link]="activeTab === 'metrics'" (click)="setTab('metrics')">
+          <mat-icon>bar_chart</mat-icon>
+          <div class="nav-text">
+            <span class="title">Métricas / Dashboard</span>
+            <span class="sub">Rendimiento comercial</span>
+          </div>
+        </button>
+
+        <button class="nav-item" [class.active-link]="activeTab === 'inventory'" (click)="setTab('inventory')">
+          <mat-icon>inventory_2</mat-icon>
+          <div class="nav-text">
+            <span class="title">Inventario y Precios</span>
+            <span class="sub">Productos y disponibilidad</span>
+          </div>
+        </button>
+
+        <button class="nav-item" [class.active-link]="activeTab === 'promotions'" (click)="setTab('promotions')">
+          <mat-icon>local_offer</mat-icon>
+          <div class="nav-text">
+            <span class="title">Promociones</span>
+            <span class="sub">Descuentos programados</span>
+          </div>
+        </button>
+
+        <button class="nav-item" [class.active-link]="activeTab === 'data'" (click)="setTab('data')">
+          <mat-icon>badge</mat-icon>
+          <div class="nav-text">
+            <span class="title">Datos de Tienda (RUC)</span>
+            <span class="sub">Perfil y validación RUC</span>
+          </div>
+        </button>
+      </nav>
+    </div>
+
+    <!-- Perfil del Comerciante en pie de sidebar -->
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <div class="avatar-circle">MM</div>
+        <div class="user-details">
+          <span class="name">Metro Miraflores..</span>
+          <span class="role">Comerciante</span>
+        </div>
+      </div>
+      <a routerLink="/login" class="btn-logout" title="Cerrar sesión">
+        <mat-icon>logout</mat-icon>
+      </a>
+    </div>
+  </aside>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <main class="main-content">
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <button class="btn-top-alert">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </header>
+
+    <div class="content-body">
+      <!-- TÍTULO DINÁMICO DE PÁGINA -->
+      <div class="page-header">
+        <h1 *ngIf="activeTab === 'metrics'">Métricas / Dashboard</h1>
+        <p *ngIf="activeTab === 'metrics'">Rendimiento comercial</p>
+
+        <h1 *ngIf="activeTab === 'inventory'">Inventario y Precios</h1>
+        <p *ngIf="activeTab === 'inventory'">Productos y disponibilidad</p>
+
+        <h1 *ngIf="activeTab === 'promotions'">Promociones</h1>
+        <p *ngIf="activeTab === 'promotions'">Descuentos programados</p>
+
+        <h1 *ngIf="activeTab === 'data'">Datos de Tienda (RUC)</h1>
+        <p *ngIf="activeTab === 'data'">Perfil y validación RUC</p>
+      </div>
+
+      <!-- CABECERA COMÚN DE LA TIENDA CON TABS (FIGMA) -->
+      <div class="merchant-banner-card">
+        <div class="merchant-banner-header">
+          <div class="merchant-store-badge">
+            <div class="store-icon-box">
+              <mat-icon>storefront</mat-icon>
+            </div>
+            <div>
+              <strong>Metro Miraflores</strong>
+              <p>RUC 20100070970 · Av. Benavides 1944</p>
+            </div>
+          </div>
+          <span class="ruc-verified-pill">
+            <mat-icon>check_circle</mat-icon> RUC Verificado
+          </span>
+        </div>
+
+        <div class="merchant-nav-tabs">
+          <button [class.tab-active]="activeTab === 'metrics'" (click)="setTab('metrics')">Métricas</button>
+          <button [class.tab-active]="activeTab === 'inventory'" (click)="setTab('inventory')">Inventario</button>
+          <button [class.tab-active]="activeTab === 'promotions'" (click)="setTab('promotions')">Promociones</button>
+          <button [class.tab-active]="activeTab === 'data'" (click)="setTab('data')">Datos de Tienda</button>
+        </div>
+      </div>
+
+      <!-- ================= 1. PESTAÑA: MÉTRICAS / DASHBOARD ================= -->
+      <section *ngIf="activeTab === 'metrics'" class="view-pane">
+        <span class="period-caption">Septiembre 2026 · Últimos 30 días</span>
+
+        <!-- 4 Tarjetas de KPIs -->
+        <div class="kpis-grid">
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-tag vt-tag">VT</span>
+              <span class="kpi-trend trend-up">+18%</span>
+            </div>
+            <strong class="kpi-value">1,284</strong>
+            <span class="kpi-name">Visitas a Tienda</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-tag vp-tag">VP</span>
+              <span class="kpi-trend trend-up">+12%</span>
+            </div>
+            <strong class="kpi-value">4,730</strong>
+            <span class="kpi-name">Vistas de Productos</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-tag cp-tag">CP</span>
+              <span class="kpi-trend trend-up">+7%</span>
+            </div>
+            <strong class="kpi-value">892</strong>
+            <span class="kpi-name">Comparaciones de Precio</span>
+          </div>
+
+          <div class="kpi-card">
+            <div class="kpi-top">
+              <span class="kpi-tag vl-tag">VL</span>
+              <span class="kpi-trend trend-down">-5%</span>
+            </div>
+            <strong class="kpi-value">23</strong>
+            <span class="kpi-name">Ventas Perdidas</span>
+          </div>
+        </div>
+
+        <!-- Gráfico de Tendencia -->
+        <div class="chart-card">
+          <h4>Tendencia de interacciones (sept.)</h4>
+          <div class="svg-sparkline-wrap">
+            <svg viewBox="0 0 700 80" class="sparkline-svg">
+              <path d="M 0 60 Q 60 55 120 50 T 240 45 T 360 40 T 480 30 T 600 25 T 700 30" fill="none" stroke="#00c49f" stroke-width="4" stroke-linecap="round" />
+            </svg>
+          </div>
+        </div>
+
+        <!-- Productos Más Consultados -->
+        <div class="ranking-card">
+          <h4>Productos Más Consultados</h4>
+          <div class="ranking-row">
+            <span class="rank-pos">#1</span>
+            <span class="rank-name">Leche Evaporada</span>
+            <div class="rank-bar-bg"><div class="rank-bar-fill" style="width: 85%;"></div></div>
+            <span class="rank-views">567 vistas</span>
+          </div>
+          <div class="ranking-row">
+            <span class="rank-pos">#2</span>
+            <span class="rank-name">Arroz Extra</span>
+            <div class="rank-bar-bg"><div class="rank-bar-fill" style="width: 65%;"></div></div>
+            <span class="rank-views">421 vistas</span>
+          </div>
+          <div class="ranking-row">
+            <span class="rank-pos">#3</span>
+            <span class="rank-name">Aceite Vegetal 1L</span>
+            <div class="rank-bar-bg"><div class="rank-bar-fill" style="width: 60%;"></div></div>
+            <span class="rank-views">389 vistas</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 2. PESTAÑA: INVENTARIO Y PRECIOS ================= -->
+      <section *ngIf="activeTab === 'inventory'" class="view-pane">
+        <div class="section-title-bar">
+          <h3>Catálogo de Precios</h3>
+          <div class="header-btns-group">
+            <button class="btn-teal-primary" (click)="setTab('promotions')">Gestionar promociones</button>
+            <button class="btn-dark-primary">Importar</button>
+          </div>
+        </div>
+
+        <div class="inventory-stack">
+          <div *ngFor="let item of inventory" class="inventory-item-card">
+            <div class="item-left-info">
+              <strong class="inv-item-name">{{ item.name }}</strong>
+              <span class="inv-cat-pill">{{ item.category }}</span>
+            </div>
+
+            <div class="item-right-actions">
+              <button
+                class="status-dropdown-pill"
+                [class.pill-avail]="item.status === 'Disponible'"
+                [class.pill-empty]="item.status === 'Agotado'"
+                (click)="toggleStatus(item)">
+                {{ item.status }} ▾
+              </button>
+              <div class="inv-price-col">
+                <strong>S/ {{ item.price.toFixed(2) }}</strong>
+                <small>{{ item.unitText }}</small>
+                <a href="javascript:void(0)" class="link-edit">Editar</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 3. PESTAÑA: PROMOCIONES ================= -->
+      <section *ngIf="activeTab === 'promotions'" class="view-pane">
+        <div class="section-title-bar">
+          <h3>Ofertas Activas</h3>
+          <button class="btn-teal-primary" (click)="showNewPromoModal = !showNewPromoModal">+ Nueva</button>
+        </div>
+
+        <!-- Formulario Crear Promoción (PROMOCIONES-NUEVA) -->
+        <div *ngIf="showNewPromoModal" class="new-promo-form-card">
+          <h4>Crear Promoción</h4>
+          <div class="form-grid">
+            <div class="field-full">
+              <select [(ngModel)]="newPromoProduct" class="input-form-control">
+                <option *ngFor="let i of inventory" [value]="i.name">{{ i.name }}</option>
+              </select>
+            </div>
+            <div class="field-full">
+              <input type="number" [(ngModel)]="newPromoPrice" placeholder="Precio oferta (S/)" class="input-form-control" step="0.10">
+            </div>
+            <div class="field-split">
+              <input type="text" [(ngModel)]="newPromoStartDate" placeholder="Fecha de inicio" class="input-form-control">
+              <input type="text" [(ngModel)]="newPromoEndDate" placeholder="Fecha de fin" class="input-form-control">
+            </div>
+          </div>
+          <div class="form-actions-split">
+            <button class="btn-cancel" (click)="showNewPromoModal = false">Cancelar</button>
+            <button class="btn-save-teal" (click)="savePromotion()">Publicar Oferta</button>
+          </div>
+        </div>
+
+        <!-- Listado de Ofertas -->
+        <div class="promos-stack">
+          <div *ngFor="let p of promotions" class="promo-card">
+            <div class="promo-info">
+              <strong class="promo-name">{{ p.productName }}</strong>
+              <div class="promo-prices-line">
+                <span class="current-promo">S/ {{ p.promoPrice.toFixed(2) }}</span>
+                <span class="old-promo">S/ {{ p.originalPrice.toFixed(2) }}</span>
+                <span class="discount-tag">{{ p.discountBadge }}</span>
+              </div>
+              <div class="promo-meta-line">
+                <span class="expired-tag">✕ {{ p.expiredText }}</span>
+                <span class="consults-tag">👁 {{ p.consultsText }}</span>
+              </div>
+            </div>
+            <button class="btn-retire-offer" (click)="removePromotion(p.id)">Retirar</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- ================= 4. PESTAÑA: DATOS DE TIENDA ================= -->
+      <section *ngIf="activeTab === 'data'" class="view-pane">
+        <div class="data-section-card">
+          <h4>Datos del Establecimiento</h4>
+          <div class="data-fields-column">
+            <div class="data-group">
+              <label>Razón Social</label>
+              <strong>{{ storeData.businessName }}</strong>
+            </div>
+            <div class="data-group">
+              <label>Dirección</label>
+              <strong>{{ storeData.address }}</strong>
+            </div>
+            <div class="data-group">
+              <label>Teléfono</label>
+              <strong>{{ storeData.phone }}</strong>
+            </div>
+            <div class="data-group">
+              <label>RUC del establecimiento</label>
+              <input type="text" [value]="storeData.ruc" class="input-ruc-readonly" readonly>
+              <small class="ruc-caption">11/11 · Ingresa 11 dígitos numéricos</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="schedule-section-card">
+          <h4>Horarios de Atención</h4>
+          <div class="schedule-rows">
+            <div class="sched-line">
+              <span>Lun – Vie</span>
+              <strong>{{ storeData.scheduleWeek }}</strong>
+            </div>
+            <div class="sched-line">
+              <span>Sábado</span>
+              <strong>{{ storeData.scheduleSat }}</strong>
+            </div>
+            <div class="sched-line">
+              <span>Domingo</span>
+              <strong>{{ storeData.scheduleSun }}</strong>
+            </div>
+          </div>
+          <button class="btn-edit-sched">Editar horarios</button>
+        </div>
+      </section>
+    </div>
+  </main>
+</div>

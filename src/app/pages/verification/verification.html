@@ -1,0 +1,115 @@
+<div class="layout-wrapper">
+  <app-sidebar></app-sidebar>
+
+  <main class="main-content">
+    <!-- Barra superior de búsqueda -->
+    <header class="top-search-bar">
+      <div class="search-input-box">
+        <mat-icon>search</mat-icon>
+        <input type="text" placeholder="Buscar producto o tienda...">
+      </div>
+      <button class="btn-top-alert" title="Notificaciones">
+        <mat-icon>notifications_none</mat-icon>
+      </button>
+    </header>
+
+    <div class="content-body">
+      <!-- Encabezado de la página -->
+      <div class="page-header">
+        <h1>Verificación Comunitaria</h1>
+        <p>Valida precios reportados</p>
+      </div>
+
+      <!-- Banner Superior Principal de Impacto -->
+      <div class="impact-hero-banner">
+        <div class="hero-left-content">
+          <span class="eyebrow-badge">CONFIANZA COLECTIVA</span>
+          <h2 class="hero-heading">Verifica un precio. Ayuda a miles.</h2>
+          <p class="hero-subtext">
+            Confirma reportes realizados cerca de ti y mantén la información de Preciazo actualizada.
+          </p>
+        </div>
+
+        <div class="hero-right-badge">
+          <div class="accuracy-box">
+            <span class="accuracy-percent">94%</span>
+            <span class="accuracy-label">precisión comunitaria</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Métricas de Desempeño en 3 Columnas -->
+      <div class="stats-counter-grid">
+        <div class="stat-counter-card">
+          <strong class="stat-big-val">12,408</strong>
+          <span class="stat-sub-label">reportes este mes</span>
+        </div>
+
+        <div class="stat-counter-card">
+          <strong class="stat-big-val">2,184</strong>
+          <span class="stat-sub-label">personas verificando</span>
+        </div>
+
+        <div class="stat-counter-card">
+          <strong class="stat-big-val">6 min</strong>
+          <span class="stat-sub-label">tiempo de validación</span>
+        </div>
+      </div>
+
+      <!-- Cabecera de la Sección de Reportes -->
+      <div class="section-lead-row">
+        <div class="section-lead-text">
+          <span class="zone-label">CERCA DE MIRAFLORES</span>
+          <h3 class="section-h3">Reportes por verificar</h3>
+        </div>
+        <span class="pending-pill-badge">{{ pendingCount }} pendientes</span>
+      </div>
+
+      <!-- Grilla de Tarjetas de Reportes -->
+      <div class="reports-cards-grid">
+        <div *ngFor="let r of reports" class="report-card">
+          <!-- Top info de la tienda -->
+          <div class="report-card-top">
+            <span class="store-tag-name">{{ r.store }}</span>
+            <span class="time-ago-tag">{{ r.timeAgo }}</span>
+          </div>
+
+          <!-- Nombre del producto -->
+          <strong class="report-product-name">{{ r.productName }}</strong>
+
+          <!-- Comparativa de Precio Publicado vs Reportado -->
+          <div class="price-comparison-box">
+            <div class="price-col">
+              <span class="price-col-label">Precio publicado</span>
+              <span class="price-col-value">S/ {{ r.publishedPrice.toFixed(2) }}</span>
+            </div>
+
+            <div class="price-col">
+              <span class="price-col-label">Precio reportado</span>
+              <span class="price-col-value reported-val">S/ {{ r.reportedPrice.toFixed(2) }}</span>
+            </div>
+          </div>
+
+          <!-- ESTADO 1: PENDIENTE (Botones No coincide / Confirmar precio) -->
+          <div *ngIf="r.status === 'pending'" class="card-actions-row">
+            <button class="btn-vote-reject" (click)="rejectReport(r)">No coincide</button>
+            <button class="btn-vote-confirm" (click)="confirmReport(r)">Confirmar precio</button>
+          </div>
+
+          <!-- ESTADO 2: CONFIRMADO (VERIFICACION-CONFIRMADO) -->
+          <div *ngIf="r.status === 'confirmed'" class="feedback-banner banner-confirmed">
+            <span>Reporte confirmado. Gracias por tu aporte.</span>
+          </div>
+
+          <!-- ESTADO 3: ENVIADO A REVISIÓN (VERIFICACION-DENEGADO) -->
+          <div *ngIf="r.status === 'rejected'" class="feedback-banner banner-rejected">
+            <span>Reporte enviado a revisión.</span>
+          </div>
+
+          <!-- Pie de validación social -->
+          <span class="social-proof-footer">{{ r.confirmedByText }}</span>
+        </div>
+      </div>
+    </div>
+  </main>
+</div>
